@@ -1,0 +1,74 @@
+<link href="../../css/nodo.css" rel="stylesheet" />
+<link href="../../css/factura.css" rel="stylesheet" />
+<div cg-busy="myPromise" ng-init="init()" resize>
+    <div id="contenedor">
+        <section>
+            <div class="col-xs-12" id="folio">
+                <div id="hideFullContent" ng-class="{ 'noExiste': documento == '' }">
+                    <div id="hideFullMenu"></div>
+                    <div id="divDocumento"></div>
+                    <br>
+                        <button type="button" class="btn btn-info" ng-click="cierraVentana()" id="btnSalir" data-loading-text="Cerrando..."><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>Salir</button>
+                </div>
+            </div>
+        </section>
+    
+    <!---->
+    <!--Agregado LMS-->         
+    <div id="divControles">   
+        <section>
+            <div class="row linea">
+                <div class="col-md-6">
+                    <br>
+                    <h4><strong>Documentos disponibles</strong></h4> 
+                    <div class="input-group" ng-repeat="documento in listaDocumentos"> <span class="input-group-addon"> <input type="checkbox" ng-model="documento.seleccionado" ng-change="SeleccionaDocumento(documento)" aria-label="Checkbox for following text input"> </span> <input ng-model="documento.nombreDocumento" type="text" class="form-control" aria-label="Text input with checkbox">  
+                    </div>
+                </div>
+            </div>  
+        </section>
+        <div class="row linea">
+            <div class="col-md-12">
+                <br>
+                <input type="radio" name="radiog_dark" id="radio1" class="css-checkbox" checked="checked" ng-model="respuesta.opcion" value="1" ng-show="respuesta.opcion">
+                <label for="radio1" class="css-label radGroup2" ng-show="btnView"><h5>La Factura Coincide&nbsp;&nbsp;</h5></label>
+                </input>
+                <input type="radio" name="radiog_dark" id="radio2" class="css-checkbox" checked="checked" ng-model="respuesta.opcion" value="2" >
+                <label for="radio2" class="css-label radGroup2" ng-show="btnView"><h5>La Factura NO Coincide</h5></label>
+                </input>
+            </div>  
+        </div> 
+        <div class="modal-footer">
+                <div id="viewerDocs" ng-controller="documentoController">
+                    <div class="btn-group" class="col-md-14">
+                        <span> <!--ng-hide="respuesta.opcion == 1"-->
+                            <button type="button" class="btn btn-warning" tooltip="Cargar documento" ng-click="openUpload()" ng-show="btnView">Cargar Archivo Recep. Material</button>
+                        </span>
+                        <span> <!-- ng-hide="respuesta.opcion == 1"-->
+                            <button class="btn btn-success" tooltip="Comparar documentos" ng-click="CompararDocumentos()">Comparar Documentos</button>
+                        </span>
+                        <span>  
+                            <button type="button" class="btn btn-primary" tooltip="Regresar" ng-click="Regresar()" id="btnRegresar">Regresar</button>
+                        </span>
+                        <span> 
+                            <button type="button" class="btn btn-primary" tooltip="Confirmar documentos" ng-click="Confirmar()" id="btnConfirmar" data-loading-text="Confirmando..."
+                            ng-hide="false" ng-disabled="false" ng-show="btnView">
+                            <!--span class="glyphicon glyphicon-play " aria-hidden="true"-->
+                            </span>Confirmar</button>
+                        </span>
+                    </div>
+                 </div>             
+        </div>
+    </div>  
+    <!--Termina agregado LMS-->
+
+</div>
+
+</div>
+<script type="text/javascript">
+    function nodisponible() {
+        var scope = angular.element($("#viewerDocs")).scope();
+        scope.$apply(function() {
+            scope.NoDisponible();
+        })
+    }
+</script>
